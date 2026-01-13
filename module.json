@@ -1,0 +1,14 @@
+{
+  "name": "chat",
+  "icon": "chat",
+  "title": "Chat",
+  "description": "Módulo para gerenciar chats",
+  "version": "1.0.0",
+  "enabled": true,
+  "dependencies": [
+    "system",
+    "pessoa",
+    "locations"
+  ],
+  "isSystem": false
+}
