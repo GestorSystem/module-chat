@@ -4,11 +4,165 @@
   "title": "Chat",
   "description": "Módulo para gerenciar chats",
   "version": "1.0.0",
-  "enabled": true,
+  "enabled": false,
   "dependencies": [
     "system",
     "pessoa",
     "locations"
   ],
-  "isSystem": false
+  "isSystem": false,
+  "interfaces": [
+    {
+      "name": "conversations",
+      "title": "Conversas",
+      "icon": "chat",
+      "resource": "Conversations",
+      "endpoint": "/api/conversations",
+      "active": true,
+      "isSystem": false,
+      "config": {
+        "title": "Conversas",
+        "icon": "chat",
+        "resource": "Conversations",
+        "endpoint": "/api/conversations",
+        "rowKey": "id",
+        "createRoute": "/crud/conversations/new",
+        "editRoute": "/crud/conversations/:id",
+        "deleteMessage": "Deseja realmente excluir esta conversa?",
+        "deleteSuccessMessage": "Conversa excluída com sucesso!",
+        "customComponent": "@gestor/chat/frontend/src/Conversations.vue",
+        "columns": [
+          {
+            "name": "id",
+            "label": "ID",
+            "align": "center",
+            "field": "id",
+            "sortable": true,
+            "style": "min-width: 80px"
+          },
+          {
+            "name": "pessoa",
+            "label": "Pessoa",
+            "align": "left",
+            "field": "Pessoa.nome",
+            "sortable": true,
+            "style": "min-width: 200px"
+          },
+          {
+            "name": "channel",
+            "label": "Canal",
+            "align": "left",
+            "field": "Channels.name",
+            "sortable": true,
+            "style": "min-width: 150px"
+          },
+          {
+            "name": "user",
+            "label": "Usuário",
+            "align": "left",
+            "field": "User.name",
+            "sortable": true,
+            "style": "min-width: 150px"
+          },
+          {
+            "name": "createdAt",
+            "label": "Criado em",
+            "align": "center",
+            "field": "createdAt",
+            "sortable": true,
+            "format": "datetime",
+            "style": "min-width: 180px"
+          }
+        ],
+        "fields": [
+          {
+            "name": "id_pessoa",
+            "label": "Pessoa",
+            "type": "select",
+            "required": true,
+            "optionsEndpoint": "/api/pessoas",
+            "optionLabel": "nome",
+            "optionValue": "id",
+            "rules": [
+              "val => !!val || \"Pessoa é obrigatória\""
+            ]
+          },
+          {
+            "name": "id_channels",
+            "label": "Canal",
+            "type": "select",
+            "required": false,
+            "optionsEndpoint": "/api/channels",
+            "optionLabel": "name",
+            "optionValue": "id"
+          },
+          {
+            "name": "id_user",
+            "label": "Usuário",
+            "type": "select",
+            "required": false,
+            "optionsEndpoint": "/api/users",
+            "optionLabel": "name",
+            "optionValue": "id"
+          }
+        ],
+        "relations": [
+          {
+            "model": "Pessoa",
+            "field": "id_pessoa",
+            "as": "Pessoa",
+            "attributes": [
+              "id",
+              "nome",
+              "email",
+              "telefone"
+            ]
+          },
+          {
+            "model": "Channels",
+            "field": "id_channels",
+            "as": "Channels",
+            "attributes": [
+              "id",
+              "name"
+            ]
+          },
+          {
+            "model": "User",
+            "field": "id_user",
+            "as": "User",
+            "attributes": [
+              "id",
+              "name",
+              "email"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "menus": [
+    {
+      "name": "Chat",
+      "id_system": 1,
+      "id_organization": null
+    }
+  ],
+  "menuItems": [
+    {
+      "name": "Conversas",
+      "icon": "chat",
+      "route": "/crud/conversations",
+      "target_blank": false,
+      "menuName": "Chat",
+      "id_system": 1,
+      "id_organization": null,
+      "id_role": null,
+      "order": 1
+    }
+  ],
+  "functions": [],
+  "cronJobs": [],
+  "batchJobs": [],
+  "queues": []
 }
